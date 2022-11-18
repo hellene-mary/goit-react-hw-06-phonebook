@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 // компонент використовую список контактів з стору через useSelector
 export function ContactList() {
   const contacts = useSelector(state => state.contacts);
-  console.log('contacts', contacts);
   const filterValue = useSelector(state => state.filters.filter);
 
   // надсилання екшона видалення контакту за допомогою useDispatch
