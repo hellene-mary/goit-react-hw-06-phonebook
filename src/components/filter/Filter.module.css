@@ -1,0 +1,10 @@
+.filterLabel {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 10px;
+}
+
+.filterLabel input {
+    padding: 8px;
+}
