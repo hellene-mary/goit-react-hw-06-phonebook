@@ -1,12 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
 import css from './ContactList.module.css';
-import { deleteContact } from 'components/redux/actions';
+import { deleteContact } from 'components/redux/contactsSlice';
 import { toast } from 'react-toastify';
 
 // компонент використовую список контактів з стору через useSelector
 export function ContactList() {
   const contacts = useSelector(state => state.contacts);
-  const filterValue = useSelector(state => state.filter).toString();
+  console.log('contacts', contacts);
+  const filterValue = useSelector(state => state.filters.filter);
 
   // надсилання екшона видалення контакту за допомогою useDispatch
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export function ContactList() {
   };
 
   const getVisibilityContacts = () => {
-    if (filterValue === '') {
+    if (!filterValue || filterValue === '') {
       return contacts;
     }
 
