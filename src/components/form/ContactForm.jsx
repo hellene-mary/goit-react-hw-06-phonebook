@@ -1,10 +1,11 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../redux/contactsSlice';
 import css from './ContactForm.module.css';
 import { toast } from 'react-toastify';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts);
 
   function handlerSubmit(evt) {
     evt.preventDefault();
@@ -12,19 +13,18 @@ const ContactForm = () => {
     const name = form.name.value;
     const contact = form.number.value;
 
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      return toast.warn(`${name} is alredy in contacts.`);
+    }
+
     // надсилання екшона додавання контакту за допомогою useDispatch
     dispatch(addContact(name, contact));
 
-    toast.success(`${name} is added to the contact list!`, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    });
+    toast.success(`${name} is added to the contact list!`);
 
     form.reset();
   }
