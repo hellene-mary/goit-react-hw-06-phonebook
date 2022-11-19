@@ -21,7 +21,6 @@ const ContactForm = () => {
       return toast.warn(`${name} is alredy in contacts.`);
     }
 
-    // надсилання екшона додавання контакту за допомогою useDispatch
     dispatch(addContact(name, contact));
 
     toast.success(`${name} is added to the contact list!`);
