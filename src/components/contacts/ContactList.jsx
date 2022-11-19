@@ -6,22 +6,13 @@ import { toast } from 'react-toastify';
 // компонент використовую список контактів з стору через useSelector
 export function ContactList() {
   const contacts = useSelector(state => state.contacts);
-  const filterValue = useSelector(state => state.filters.filter);
+  const filterValue = useSelector(state => state.filters.filter).toLowerCase();
 
   // надсилання екшона видалення контакту за допомогою useDispatch
   const dispatch = useDispatch();
   const handleDelete = evt => {
     dispatch(deleteContact(evt.target.id));
-    toast.info(`This contact is delited from your phonebook!`, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    });
+    toast.info(`This contact is delited from your phonebook!`);
   };
 
   const getVisibilityContacts = () => {
@@ -29,7 +20,9 @@ export function ContactList() {
       return contacts;
     }
 
-    return contacts.filter(contact => contact.name.includes(filterValue));
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filterValue)
+    );
   };
 
   const visibilityContacts = getVisibilityContacts();
